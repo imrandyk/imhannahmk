@@ -10,6 +10,7 @@ const HeaderWrapper = styled.div`
   margin-bottom: 1.45rem;
   overflow: hidden;
   position: relative;
+  height: 70vh;
   h1 {
     img {
       height: 80px;
@@ -21,6 +22,7 @@ const HeaderContainer = styled.div`
   max-width: 960px;
   padding: 1.45rem 1.0875rem;
   position: relative;
+  z-index: 2;
 `
 
 const Header = ({ data }) => (
@@ -52,7 +54,7 @@ const Header = ({ data }) => (
       style={{
         position: 'absolute',
         left: 0,
-        right: 0,
+        top: 0,
         height: '100%',
         width: '100%',
         zIndex: 1,
