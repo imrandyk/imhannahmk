@@ -2,12 +2,17 @@ import React from 'react'
 import Link from 'gatsby-link'
 import PostListing from '../components/Posts/PostListing'
 
+import Header from '../components/Header'
+
 const IndexPage = ({ data }) => (
   <div>
-    <h2>Posts</h2>
-    {data.allMarkdownRemark.edges.map(({ node }) => (
-      <PostListing key={node.id} post={node} />
-    ))}
+    {data.allMarkdownRemark.edges.map(({ node }, i) => {
+      // if (i === 0) {
+      //   return <Header data={node} location={location} />
+      // } else {
+      return <PostListing key={node.id} post={node} />
+      // }
+    })}
   </div>
 )
 

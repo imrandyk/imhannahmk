@@ -3,115 +3,112 @@ import ReactDOM from 'react-dom'
 import Link from 'gatsby-link'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
-
-import logo from '../../images/logo.svg'
+import linkFamily from '../../images/link-family.jpg'
+import linkAdventure from '../../images/link-adventure.jpg'
 
 const HeaderWrapper = styled.div`
-  background: #524763;
-  margin-bottom: 1.45rem;
-  overflow: hidden;
-  position: relative;
-  height: ${({ isHome }) => (isHome ? '70vh' : '20vh')};
-  h1 {
-    img {
-      height: 80px;
-    }
-  }
-`
-const HeaderContainer = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 1.45rem 1.0875rem;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 3fr 250px;
 `
 
-const MainNav = styled.nav`
-  ul {
-    list-style: none;
-    display: flex;
-    li {
-      margin-left: 10px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-        Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol';
-      a {
-        text-decoration: none;
-        color: #fff;
-        &:hover {
-          border-bottom: 3px solid #524763;
-        }
+const FirstPost = styled.div``
+
+const NaviContainer = styled.div`
+  display: grid;
+  grid-gap: 0px;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 125px;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    background-color: #416e67;
+    position: relative;
+    overflow: hidden;
+
+    :before,
+    :after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: all 500ms;
+    }
+    :after {
+      z-index: 0;
+    }
+    :before {
+      background-color: rgba(65, 110, 103, 0.7);
+      z-index: 1;
+    }
+    :hover {
+      :before {
+        background-color: rgba(65, 110, 103, 0.4);
+      }
+      :after {
+        transform: scale(1.2);
       }
     }
+
+    span {
+      z-index: 2;
+    }
+  }
+
+  a:last-of-type {
+    grid-column: span 2;
+  }
+
+  a:hover {
+    background-size: 120%;
+  }
+
+  .link-family:after {
+    background-image: url(${linkFamily});
+  }
+
+  .link-adventure:after {
+    background-image: url(${linkAdventure});
   }
 `
 
 export default class Header extends Component {
-  componentDidUpdate = (prevProps, prevState) => {
-    const { location } = this.props
-    if (location.pathname !== prevProps.location.pathname) {
-      if (this.props.location.pathname === '/') {
-        this.wrapper.animate([{ height: '20vh' }, { height: '70vh' }], {
-          duration: 300,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-          iterations: 1,
-        })
-      } else {
-        this.wrapper.animate([{ height: '70vh' }, { height: '20vh' }], {
-          duration: 300,
-          fill: 'forwards',
-          easing: 'cubic-bezier(0.86, 0, 0.07, 1)',
-          iterations: 1,
-        })
-      }
-    }
-  }
-
   render() {
     const { data, location } = this.props
     return (
-      <HeaderWrapper
-        isHome={location.pathname === '/'}
-        ref={wrapper => (this.wrapper = ReactDOM.findDOMNode(wrapper))}
-      >
-        <HeaderContainer>
-          <h1 style={{ margin: 0 }}>
-            <Link
-              to="/"
-              style={{
-                color: 'white',
-                textDecoration: 'none',
-              }}
-            >
-              <img src={logo} alt="Level Up Logo" />
-            </Link>
-          </h1>
-          <MainNav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-            </ul>
-          </MainNav>
-        </HeaderContainer>
-        <Img
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            opacity: 0.3,
-          }}
-          sizes={data.background.sizes}
-        />
+      <HeaderWrapper>
+        <FirstPost>
+          <h1>{data.frontmatter.title}</h1>
+        </FirstPost>
+        <NaviContainer>
+          <Link to="\" className="link-family">
+            <span>Family</span>
+          </Link>
+          <Link to="\">
+            <span>Home</span>
+          </Link>
+          <Link to="\">
+            <span>Quotes</span>
+          </Link>
+          <Link to="\" className="link-adventure">
+            <span>Adventure</span>
+          </Link>
+          <Link to="\">
+            <span>Self Love</span>
+          </Link>
+          <Link to="\">
+            <span>Self Care</span>
+          </Link>
+          <Link to="\">
+            <span>Lettering</span>
+          </Link>
+        </NaviContainer>
       </HeaderWrapper>
     )
   }

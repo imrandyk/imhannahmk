@@ -4,6 +4,7 @@ module.exports = {
     desc: 'A new blog',
   },
   plugins: [
+    'gatsby-plugin-netlify-cms',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     {
